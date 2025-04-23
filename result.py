@@ -40,6 +40,10 @@ def export(trainer):
     val_losses = tensor_to_float(checkpoint.get('val_losses', []))
     train_dices = tensor_to_float(checkpoint.get('train_dices', []))
     val_dices = tensor_to_float(checkpoint.get('val_dices', []))
+    
+    train_ious = tensor_to_float(checkpoint.get('train_ious', []))
+    val_ious = tensor_to_float(checkpoint.get('val_ious', []))
+    
     best_dice = tensor_to_float(checkpoint.get('best_dice', None))
     best_epoch = tensor_to_float(checkpoint.get('best_epoch', None))
     epoch = checkpoint.get('epoch', None)
@@ -52,6 +56,8 @@ def export(trainer):
         'val_losses': val_losses,
         'train_dices': train_dices,
         'val_dices': val_dices,
+        'train_ious': train_ious,
+        'val_ious': val_ious,
         'best_dice': [best_dice] * len(epochs),
         'best_epoch': [best_epoch] * len(epochs),
         'epoch': epochs
@@ -85,6 +91,16 @@ def export(trainer):
     plt.xlabel('Epoch')
     plt.ylabel('Dice Coefficient')
     plt.legend()
+    
+    # Plot IOU
+    plt.subplot(1, 2, 3)
+    plt.plot(df['epoch'], df['train_ious'], label='Train Iou')
+    plt.plot(df['epoch'], df['val_ious'], label='Valid Iou')
+    plt.title('Training and Validation IOU')
+    plt.xlabel('Epoch')
+    plt.ylabel('IOU')
+    plt.legend()
+    
     # Vẽ đồ thị
     plt.tight_layout()
         # Save the plot to a file
