@@ -36,7 +36,7 @@ def dice_coeff(pred, target, smooth=1e-5):
     pred = torch.sigmoid(pred)  # Chuyển logits về xác suất
     intersection = torch.sum(pred * target)
     return (2. * intersection + smooth) / (torch.sum(pred) + torch.sum(target) + smooth)
-def iou(y_pred, y_true, eps=1e-7):
+def iou_core(y_pred, y_true, eps=1e-7):
     y_true_f = y_true.view(-1)  # flatten
     y_pred_f = y_pred.view(-1)  # flatten
 
