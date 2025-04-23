@@ -45,9 +45,9 @@ def loss_func(inputs, target):
     elif args.loss == "BCEDice_loss":
         x = bce_dice_loss(inputs,target)
         return x
-    elif arg.loss == "BCEw_loss"
+    elif arg.loss == "BCEw_loss":
         x = bce_weight_loss(inputs,target)
-    elif arg.loss == "BCEwDice_loss"
+    elif arg.loss == "BCEwDice_loss":
         x = bce_dice_weight_loss(inputs,target)
 
 
