@@ -205,5 +205,5 @@ class PyramidCbamGateUNet(nn.Module):
         up4 = torch.cat([self.up4_transpose(up3), conv1], dim=1)
 
         conv9 = self.conv9(up4)
-        out = torch.sigmoid(self.final(conv9))
+        out = self.final(conv9)
         return out
