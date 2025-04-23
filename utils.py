@@ -14,6 +14,16 @@ def bce_dice_loss(inputs, target):
     bce_loss = nn.BCELoss()
     bce_score = bce_loss(inputs, target)
     return bce_score + dice_score
+def bce_weight_loss(inputs, target, pos_weight = 231.2575):
+    bce = nn.BCEWithLogitsLoss(pos_weight=torch.tensor([pos_weight]).to(DEVICE))
+    bce_w_loss = bce(inputs, target)
+    return bce_w_loss
+def bce_dice_weight_loss(inputs, targets, pos_weight = 231.2575):
+    
+    bce_w_loss = bce_weight_loss(inputs, targets)
+    dice = dice_coef_loss(inputs, targets)
+    return bce_w_loss + dice
+    
 def tensor_to_float(value):
     if isinstance(value, torch.Tensor):
         return value.cpu().item()  # Chuyển tensor về CPU và lấy giá trị float
@@ -30,12 +40,15 @@ def dice_coeff(pred, target, smooth=1e-5):
 def loss_func(inputs, target):
     args = get_args()
     if args.loss == "Dice_loss":
-        x=dice_coef_loss(inputs,target)
+        x = dice_coef_loss(inputs,target)
         return x
     elif args.loss == "BCEDice_loss":
-        x=bce_dice_loss(inputs,target)
+        x = bce_dice_loss(inputs,target)
         return x
-
+    elif arg.loss == "BCEw_loss"
+        x = bce_weight_loss(inputs,target)
+    elif arg.loss == "BCEwDice_loss"
+        x = bce_dice_weight_loss(inputs,target)
 
 
     
