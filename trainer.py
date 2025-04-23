@@ -94,7 +94,7 @@ class Trainer:
                 
                 # Log every 15 steps
                 if (i + 1) % self.log_interval == 0:
-                    train_loader_progress.set_postfix({'Step': i + 1, 'Loss': loss.item(), 'Dice': dice.item(), 'Iou:' iou.item()})
+                    train_loader_progress.set_postfix({'Step': i + 1, 'Loss': loss.item(), 'Dice': dice.item(), 'Iou': iou.item()})
             # self.scheduler.step() #=> CosineAnnealingLR(self.optimizer, T_max=T_max, eta_min=lr_min)
             scheduler.step(val_loss) #=> scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
 
@@ -193,7 +193,7 @@ class Trainer:
                 
                 # Log every 15 steps
                 if (i + 1) % self.log_interval == 0:
-                    train_loader_progress.set_postfix({'Step': i + 1, 'Loss': loss.item(), 'Dice': dice.item(), 'Iou:' iou.item()})
+                    train_loader_progress.set_postfix({'Step': i + 1, 'Loss': loss.item(), 'Dice': dice.item(), 'Iou': iou.item()})
             # self.scheduler.step() => CosineAnnealingLR(self.optimizer, T_max=T_max, eta_min=lr_min)
             scheduler.step(val_loss) # => scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
             self.model.eval()
