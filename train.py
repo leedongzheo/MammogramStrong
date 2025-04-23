@@ -27,7 +27,7 @@ def get_args():
     Chạy:
     python script.py --img_size 128 128 3
     """
-    parser.add_argument("--loss", type=str, choices=["Dice_loss", "BCEDice_loss"], default="Dice_loss", help="Hàm loss sử dụng, default = Dice_loss")
+    parser.add_argument("--loss", type=str, choices=["Dice_loss", "BCEDice_loss", "BCEwDice_loss", "BCEw_loss"], default="BCEw_loss", help="Hàm loss sử dụng, default = Dice_loss")
     parser.add_argument("--optimizer", type=str, choices=["Adam", "SGD"], default="Adam", help="Optimizer sử dụng, default = Adam")
     return parser.parse_args()
 def main():  
