@@ -18,7 +18,7 @@ def bce_weight_loss(inputs, target, pos_weight = 231.2575):
     bce = nn.BCEWithLogitsLoss(pos_weight=torch.tensor([pos_weight]).to(DEVICE)) #=> yêu cầu model chưa signmoid => dùng code này được
     bce_w_loss = bce(inputs, target)
     return bce_w_loss
-def bce_dice_weight_loss(inputs, targets, pos_weight = 231.2575):
+def bce_dice_weight_loss(inputs, targets):
     bce_w_loss = bce_weight_loss(inputs, targets) # yêu cầu model chưa signmoid => dùng code này được
     dice = dice_coef_loss(inputs, targets)
     return bce_w_loss + dice
@@ -47,8 +47,10 @@ def loss_func(inputs, target):
         return x
     elif args.loss == "BCEw_loss":
         x = bce_weight_loss(inputs,target)
+        return x
     elif args.loss == "BCEwDice_loss":
         x = bce_dice_weight_loss(inputs,target)
+        return x
 
 
     
