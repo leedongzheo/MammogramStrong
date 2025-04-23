@@ -83,7 +83,7 @@ class Trainer:
                 outputs = self.model(images)
                 loss = self.criterion(outputs, masks)
                 dice = dice_coeff(outputs, masks)
-                iou = iou(outputs, masks)
+                iou = iou_core(outputs, masks)
                 
                 loss.backward()
                 self.optimizer.step()
@@ -106,7 +106,7 @@ class Trainer:
                     outputs = self.model(images)
                     loss = self.criterion(outputs, masks)
                     dice = dice_coeff(outputs, masks)
-                    iou = iou(outputs, masks)
+                    iou = iou_core(outputs, masks)
                     
                     val_loss += loss.item()
                     val_dice += dice.item()
@@ -182,7 +182,7 @@ class Trainer:
                 outputs = self.model(images)
                 loss = self.criterion(outputs, masks)
                 dice = dice_coeff(outputs, masks)
-                iou = iou(outputs, masks)
+                iou = iou_core(outputs, masks)
                 
                 loss.backward()
                 self.optimizer.step()
@@ -204,6 +204,7 @@ class Trainer:
                     outputs = self.model(images)
                     loss = self.criterion(outputs, masks)
                     dice = dice_coeff(outputs, masks)
+                    iou = iou_core(outputs, masks)
                     val_loss += loss.item()
                     val_dice += dice.item()
                     val_iou += iou.item()
