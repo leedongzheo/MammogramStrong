@@ -20,7 +20,7 @@ class Trainer:
          # Khởi tạo CosineAnnealingLR scheduler
         # self.scheduler = CosineAnnealingLR(self.optimizer, T_max=T_max, eta_min=lr_min)
         # self.scheduler = MultiStepLR(optimizer, milestones=[20, 40, 60], gamma=0.1)
-        scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
+        self.scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
 
 
     def save_checkpoint(self, epoch, dice, filename, mode = "pretrained"):
@@ -96,7 +96,7 @@ class Trainer:
                 if (i + 1) % self.log_interval == 0:
                     train_loader_progress.set_postfix({'Step': i + 1, 'Loss': loss.item(), 'Dice': dice.item(), 'Iou': iou.item()})
             # self.scheduler.step() #=> CosineAnnealingLR(self.optimizer, T_max=T_max, eta_min=lr_min)
-            scheduler.step(val_loss) #=> scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
+            self.scheduler.step(val_loss) #=> scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
 
             self.model.eval()
             with torch.no_grad():
@@ -195,7 +195,7 @@ class Trainer:
                 if (i + 1) % self.log_interval == 0:
                     train_loader_progress.set_postfix({'Step': i + 1, 'Loss': loss.item(), 'Dice': dice.item(), 'Iou': iou.item()})
             # self.scheduler.step() => CosineAnnealingLR(self.optimizer, T_max=T_max, eta_min=lr_min)
-            scheduler.step(val_loss) # => scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
+            self.scheduler.step(val_loss) # => scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
             self.model.eval()
             with torch.no_grad():
                 val_loader_progress = tqdm(enumerate(val_loader), total=len(val_loader), desc="Validation")
