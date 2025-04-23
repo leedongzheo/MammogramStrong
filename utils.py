@@ -4,7 +4,7 @@ def dice_coef_loss(inputs, target, smooth=1e-6):
     """
     Dice Loss: Thước đo sự chồng lấn giữa output và ground truth.
     """
-    # inputs = torch.sigmoid(inputs)  # Chuyển logits về xác suất
+    inputs = torch.sigmoid(inputs)  # Chuyển logits về xác suất
     intersection = (inputs * target).sum()
     union = inputs.sum() + target.sum()
     dice_score = (2.0 * intersection + smooth) / (union + smooth)
@@ -12,15 +12,14 @@ def dice_coef_loss(inputs, target, smooth=1e-6):
 def bce_dice_loss(inputs, target):
     dice_score = dice_coef_loss(inputs, target)
     bce_loss = nn.BCELoss()
-    bce_score = bce_loss(inputs, target)
+    bce_score = bce_loss(inputs, target)  # yêu cầu đầu vào signmoid rồi => ko dùng code này do model chưa signmoid
     return bce_score + dice_score
 def bce_weight_loss(inputs, target, pos_weight = 231.2575):
-    bce = nn.BCEWithLogitsLoss(pos_weight=torch.tensor([pos_weight]).to(DEVICE))
+    bce = nn.BCEWithLogitsLoss(pos_weight=torch.tensor([pos_weight]).to(DEVICE)) #=> yêu cầu model chưa signmoid => dùng code này được
     bce_w_loss = bce(inputs, target)
     return bce_w_loss
 def bce_dice_weight_loss(inputs, targets, pos_weight = 231.2575):
-    
-    bce_w_loss = bce_weight_loss(inputs, targets)
+    bce_w_loss = bce_weight_loss(inputs, targets) # yêu cầu model chưa signmoid => dùng code này được
     dice = dice_coef_loss(inputs, targets)
     return bce_w_loss + dice
     
@@ -34,6 +33,7 @@ def to_numpy(tensor):
     # Move tensor to CPU and convert to NumPy array
     return tensor.cpu().detach().item()
 def dice_coeff(pred, target, smooth=1e-5):
+    pred = torch.sigmoid(pred)  # Chuyển logits về xác suất
     intersection = torch.sum(pred * target)
     return (2. * intersection + smooth) / (torch.sum(pred) + torch.sum(target) + smooth)
 # def inan():
