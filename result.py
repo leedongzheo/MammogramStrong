@@ -74,8 +74,8 @@ def export(trainer):
     # df.info()
 
     # Plot Losses
-    plt.figure(figsize=(12, 5))
-    plt.subplot(1, 2, 1)
+    plt.figure(figsize=(18, 5))
+    plt.subplot(1, 3, 1)
     plt.plot(df['epoch'], df['train_losses'], label='Train Loss')
     plt.plot(df['epoch'], df['val_losses'], label='Valid Loss')
     plt.title('Training and Validation Losses')
@@ -84,7 +84,7 @@ def export(trainer):
     plt.legend()
 
     # Plot Dice Coefficients
-    plt.subplot(1, 2, 2)
+    plt.subplot(1, 3, 2)
     plt.plot(df['epoch'], df['train_dices'], label='Train Dice')
     plt.plot(df['epoch'], df['val_dices'], label='Valid Dice')
     plt.title('Training and Validation Dice Coefficients')
@@ -93,7 +93,7 @@ def export(trainer):
     plt.legend()
     
     # Plot IOU
-    plt.subplot(1, 2, 3)
+    plt.subplot(1, 3, 3)
     plt.plot(df['epoch'], df['train_ious'], label='Train Iou')
     plt.plot(df['epoch'], df['val_ious'], label='Valid Iou')
     plt.title('Training and Validation IOU')
